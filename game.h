@@ -1,17 +1,19 @@
 #include "player.h"
+using namespace std;
 
 namespace bowling {
-	class game {
-	public:
-		player *player1, *player2;
-		void changeRound(int round);
-		void togglePlayerInCurrentRound();
-		void setScore(int score);
-
-	private:
-		int currentRound;
-		player currentPlayer;
-		int scoreCurrentState;
-
-	}
+class Game {
+public:
+	Player *firstPlayer, *secondPlayer;
+	Game(Player *player1, Player *player2);
+	void changeRound(int round);
+	void toggleCurrentPlayer();
+	void setScore(int score);
+	string getCurrentPlayerName();
+private:
+	int currentRound;
+	Player *currentPlayer;
+	int currentPlayerNum;
+	int scoreCurrentPlayerRound;
+};
 }

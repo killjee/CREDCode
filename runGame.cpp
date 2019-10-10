@@ -22,22 +22,27 @@ bool RunGame::simulateGame (Player *firstPlayer, Player *secondPlayer) {
 void RunGame::roundForPlayer(bool lastRound) {
 	cout<<game->getCurrentPlayerName()<<": ";
 	int numberOfHits = 2;
-	if (lastRound) {
-		numberOfHits += 1;
-	}
 	int maxScore = 10;
 
 	for (int i=0; i<numberOfHits; i++) {
 		if (maxScore == 0 && !lastRound)	continue;
-		if (maxScore == 0) {
-			maxScore = 10;
-		}
+		
 
 		int currentScore = rand() % (maxScore + 1);
-		maxScore -= currentScore;
+		int pcurrentScore = currentScore;
+		if (currentScore == 10) {
+			currentScore += 10;
+		} else if (maxScore+currentScore == 10) {
+			currentScore += 5;
+		}
+		maxScore -= pcurrentScore;
 		game->setScore(currentScore);
 
-		cout<<currentScore<<" ";
+		cout<<pcurrentScore<<" ";
+		if (maxScore == 0 && lastRound) {
+			maxScore = 10;
+			numberOfHits = min(3, numberOfHits+1);
+		}
 	}
 	game->toggleCurrentPlayer();
 	cout<<endl;
